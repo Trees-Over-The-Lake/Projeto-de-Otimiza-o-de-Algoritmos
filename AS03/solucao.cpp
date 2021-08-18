@@ -1,7 +1,18 @@
+/*
+    Professor: Wladmir Cardoso Brandão
+    Matéria: Laboratório de Projeto de Algoritmos
+    Aluno: Lucas Santiago de Oliveira
+    Matrícula: 650888
+    Complexidade do algoritmo: O(n) -> n sendo o tamanho da maior string de entrada
+    Complexidade de espaço: O(1) -> O custo de espaço é sempre constante, o custo de memória \
+    do algoritmo não cresce junto com a entrada
+*/
+
 #include <cstdint>
 #include <string>
 #include <iostream>
 
+// Verificar se existe todos os caracteres de uma substring dentro de uma string
 bool existeSubstring(std::string string, std::string substring) {
     uint16_t posEncontrado = 0;
 
@@ -22,7 +33,7 @@ bool existeSubstring(std::string string, std::string substring) {
 int main(int argc, char **argv) {
     uint16_t casosTeste;
     std::cin >> casosTeste;
-    std::cin.ignore();
+    std::cin.ignore();  // Consumir o '\n' que ficou sobrando da leitura anterior
 
     std::string caso;
     for(uint16_t i = 0; i < casosTeste; i++) {
@@ -30,7 +41,7 @@ int main(int argc, char **argv) {
 
         uint16_t queries; 
         std::cin >> queries; 
-        std::cin.ignore();
+        std::cin.ignore();  // Consumir o '\n' que ficou sobrando da leitura anterior
 
         std::string subsequencia;
         for(uint16_t j = 0; j < queries; j++) {
