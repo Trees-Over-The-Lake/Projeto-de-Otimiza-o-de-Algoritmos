@@ -10,9 +10,12 @@ public:
     void print_results(uint32_t caseNumber, uint32_t numberOfCases) {
         std::cout << "Case #" << caseNumber << ":" << std::endl;
 
+        std::wcout << L'a' << ","; 
+        if(this->vertex[0].size() != 0) std::cout << std::endl;
         for(uint32_t i = 0; i < numberOfCases; i++) {
+
             for(wchar_t vertex : this->vertex[i]) {
-                std::wcout << vertex << ", ";
+                std::wcout << vertex << ",";
             }
             if(this->vertex[i].size() != 0) std::cout << std::endl;
         }
@@ -24,7 +27,7 @@ public:
 // Solution for uri judge 1082 -> https://www.urionlinejudge.com.br/judge/pt/problems/view/1082
 int main() {
     // Setting the locale for the file -> using Unicode
-    std::locale l("pt_BR.UTF-8");
+    std::locale l("en_US.UTF-8");
     std::wcin.imbue(l);
     std::wcout.imbue(l);
 
@@ -41,7 +44,7 @@ int main() {
 
         graph = new Graph();  // Creating the graph in memory
         graph->vertex = new std::vector<wchar_t>[vertex];  // Setting the number of vertex for the graph
-        std::pair<wchar_t, wchar_t> edgeConnection;    
+        std::pair<wchar_t, wchar_t> edgeConnection;
         for(uint32_t j = 0; j < edge; j++) {
             // Pair to hold a connection between 2 edges
             std::wcin >> edgeConnection.first >> edgeConnection.second;
