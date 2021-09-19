@@ -26,7 +26,7 @@ public:
     // Iniciar grafo com 'v' numero de vertices
     Graph(uint32_t v) {    
         this->numEdges = this->numVertices = 0;
-        for(int i =0 ; i < v; i++) addVertex();
+        for(int i = 0; i < v; i++) addVertex();
     }
 
     // Adicionar vertice na lista de adjacencia
@@ -78,7 +78,7 @@ public:
                 // Ordenar os vértices resultantes do dfs
                 std::sort(vertexes.begin(), vertexes.end());
                 for(int j = 0; j < vertexes.size(); j++) 
-                    std::cout << vertexes.at(j) << ",";
+                    std::cout << (char) (vertexes.at(j) + 'a') << ",";
                 
                 num++;
                 std::cout << std::endl; // dar espacamento
@@ -101,11 +101,11 @@ public:
 
         // Deslocar os vizinhos
         std::vector<uint32_t> adjVertex = this->adj.at(vert); 
-        for (int i = 0 ; i < adjVertex.size(); i++)
+        for (int i = 0; i < adjVertex.size(); i++)
             // Visitar os visinhos do vértice
             if (!visited[adjVertex.at(i)]) {
                 // Salvar vizinhos visitados
-                auto tmp = dfs(adjVertex.at(i), visited);
+                std::vector<char> tmp = dfs(adjVertex.at(i), visited);
                 for(int j = 0; j < tmp.size(); j++) 
                     saida.push_back(tmp.at(j));
             }
@@ -124,13 +124,13 @@ int main(int argc, char **argv) {
     // sem precisarem serem reinstanciadas
     int v,e;
     char v1,v2;
-    for(int i = 1 ; i != n; i++) {
+    for(int i = 0; i < n; i++) {
         // Criando grafo
         std::cin >> v >> e;
         std::cin.ignore();
 
         Graph* graph = new Graph(v);
-        for(int j = 0 ; j < e; j++) {
+        for(int j = 0; j < e; j++) {
             // Fazer leitura da aresta 'j' do grafo
             std::cin >> v1 >> v2;
             std::cin.ignore();
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
         }
 
         // Imprimindo o resultado
-        std::cout << "Case #" << i << ":" << std::endl;
+        std::cout << "Case #" << i + 1 << ":" << std::endl;
         int num = graph->numberOfComponents();
         std::cout << num << " connected components\n" << std::endl;
 
