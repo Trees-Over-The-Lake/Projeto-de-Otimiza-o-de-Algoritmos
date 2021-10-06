@@ -1,54 +1,94 @@
 #include <iostream>
 
-int bubblesort(int *vetor, int size) {
-    int numMovimentacoes = 0;
-    int aux; // Variável auxiliar para facilitar a swap de elementos
+// Swap de elements
+void swap(int *a, int *b, int *numMovimentacoes) {
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+    *numMovimentacoes++;
+}
 
-    for(int i = 0; i < size-1; i++) {
-        for(int j = 0; j < size-i-1; j++) {
-            if(vetor[j] > vetor[j+1]) {
-                numMovimentacoes++;
+// Algoritmo de divisão e conquista
+void mergesort(int i, int j, int a[], int aux[], int *numMovimentacoes) {
+    if (j <= i) return; 
 
-                aux = vetor[j];
-                vetor[j] = vetor[j+1];
-                vetor[j+1] = aux;
-            }
+    int mid = (i + j) / 2;
+
+    mergesort(i, mid, a, aux, numMovimentacoes);
+    mergesort(mid + 1, j, a, aux, numMovimentacoes);
+
+    int pLeft = i;
+    int pRight = mid + 1;
+    int k;
+
+    for (k = i; k <= j; k++) {
+        if (pLeft == mid + 1) {
+            aux[k] = a[pRight];
+            pRight++;
+            *numMovimentacoes += mid-k;
+        
+        } else if (pRight == j + 1) {
+            aux[k] = a[pLeft];
+            pLeft++;
+        
+        } else if (a[pLeft] < a[pRight]) {
+            aux[k] = a[pLeft];
+            pLeft++;
+        
+        } else {
+            aux[k] = a[pRight];
+            pRight++;
+            *numMovimentacoes += mid-k;
+        
         }
     }
 
-    // for(int i = 0; i < size; i++) {
-    //     std::cout << vetor[i];
-    // }
-    // std::cout << "\n";
+    for (k = i; k <= j; k++) 
+        a[k] = aux[k];
+        
+}
 
-    return numMovimentacoes;
+// Escrever o array na tela
+void printArray(int array[], int size) {
+    std::cout << "Array: ";
+
+    for (int i = 0; i < size; i++)
+        std::cout << array[i] << " ";
+
+    std::cout << std::endl;
 }
 
 int main(int argc, char **argv) {
-    short entrada;
+    int entrada;
     std::cin >> entrada;
 
     int *valores = new int[entrada];
-    int tamanhoVetor = 0;    
+    int tamanhoVetor = 0;
+    int numMovimentacoes;
 
-    while(entrada != 0) {
+    while (entrada != 0) {
         // Só recriar o vetor na memória se o novo vetor precisar ser maior que o anterior
-        if(tamanhoVetor < entrada) {
+        if (tamanhoVetor < entrada) {
             tamanhoVetor = entrada;
             valores = new int[tamanhoVetor];
         
         } else
-            tamanhoVetor = entrada; 
+            tamanhoVetor = entrada;
 
-        for(int i = 0; i < entrada; i++) {
+        for (int i = 0; i < tamanhoVetor; i++) 
             std::cin >> valores[i];
-        }
+        
+        
+        numMovimentacoes = 0;
+        int vetorAuxiliar[tamanhoVetor];
+        mergesort(0, entrada-1, valores, vetorAuxiliar, &numMovimentacoes);
 
-        if(bubblesort(valores, entrada) % 2) 
+        if (numMovimentacoes % 2)
             std::cout << "Marcelo" << std::endl;
 
-        else 
+        else
             std::cout << "Carlos" << std::endl;
+
 
         std::cin >> entrada;
     }
